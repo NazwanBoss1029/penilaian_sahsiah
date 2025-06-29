@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <title>Penilaian Sahsiah Kendiri</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .soalan { margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+
+<h2>Penilaian Sahsiah Kendiri</h2>
+<form id="borang">
+  <div class="soalan">1. Saya bertindak dengan jujur walaupun tiada siapa melihat.
+    <select name="q1">
+      <option value="0">Tidak Pernah</option>
+      <option value="1">Jarang</option>
+      <option value="2">Kerap</option>
+      <option value="3">Sangat Kerap</option>
+    </select>
+  </div>
+  <!-- Tambah soalan 2 hingga 10 dengan nama q2, q3 ... q10 -->
+
+  <button type="button" onclick="kiraSkor()">Hantar</button>
+</form>
+
+<p id="keputusan"></p>
+
+<script>
+function kiraSkor() {
+  let skor = 0;
+  const negatif = [4, 6, 8, 10]; // Soalan songsang
+  for (let i = 1; i <= 10; i++) {
+    let nilai = parseInt(document.forms["borang"]["q" + i].value);
+    if (negatif.includes(i)) {
+      nilai = 3 - nilai; // songsangkan
+    }
+    skor += nilai;
+  }
+
+  let keputusan = "";
+  if (skor >= 24) keputusan = "Sahsiah sangat baik.";
+  else if (skor >= 18) keputusan = "Sahsiah baik.";
+  else if (skor >= 12) keputusan = "Sahsiah sederhana.";
+  else keputusan = "Sahsiah kurang baik.";
+
+  document.getElementById("keputusan").innerText = 
+    `Skor anda: ${skor}/30\n${keputusan}`;
+}
+</script>
+
+</body>
+</html>
